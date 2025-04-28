@@ -1,0 +1,31 @@
+
+run = "cd FGC-Stream && g++ -g -Wall *.cpp -o FGC-Stream && ./FGC-Stream \"../Datasets/in.txt\" 3 1000 \"../outCI.txt\" 1000 \"../outOr.txt\""
+
+[nix]
+channel = "stable-23_05"
+
+[languages.cpp]
+pattern = "**/*.{cpp,h}"
+syntax = "cpp"
+
+[languages.cpp.languageServer]
+start = "clangd"
+
+[deployment]
+build = ["g++", "-g", "-Wall", "*.cpp", "-o", "FGC-Stream"]
+run = "./FGC-Stream"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[workflows]
+runButton = "Run FGC-Stream"
+
+[[workflows.workflow]]
+name = "Run FGC-Stream"
+author = 41671303
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd FGCStream/FGC-Stream && g++ -g -Wall *.cpp -o FGC-Stream && ./FGC-Stream \"../Datasets/in.txt\" 3 1000 \"../outCI.txt\" 1000 \"../outOr.txt\""
